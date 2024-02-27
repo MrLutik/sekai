@@ -23,7 +23,8 @@ rm -fv "$OUTPUT" || echo "ERROR: Failed to wipe old sekaid binary"
 
 go mod tidy
 GO111MODULE=on go mod verify
-env GOOS=$PLATFORM GOARCH=$ARCH go build -ldflags "${ldfName} ${ldfAppName} ${ldfVersion} ${ldfCommit} ${ldfBuildTags}" -o "$OUTPUT" ./cmd/sekaid
+
+env CGO_ENABLED=0 GOOS=$PLATFORM GOARCH=$ARCH go build -ldflags "-extldflags '-static' ${ldfName} ${ldfAppName} ${ldfVersion} ${ldfCommit} ${ldfBuildTags}" -o "$OUTPUT" ./cmd/sekaid
 
 ( [ "$PLATFORM" == "$LOCAL_PLATFORM" ] && [ "$ARCH" == "$LOCAL_ARCH" ] && [ -f $OUTPUT ] ) && \
     echo "INFO: Sucessfully built SEKAI $($OUTPUT version)" || echo "INFO: Sucessfully built SEKAI to '$OUTPUT'"
