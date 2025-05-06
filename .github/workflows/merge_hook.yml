@@ -24,7 +24,7 @@ jobs:
         run: |
           curl -X POST -H "Accept: application/vnd.github.v3+json" \
           -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          "https://api.github.com/repos/KiraCore/sekin/dispatches" \
+          "https://api.github.com/repos/mrlutik/sekin/dispatches" \
           -d @- <<EOF
           {
             "event_type": "release_merged",
@@ -33,8 +33,8 @@ jobs:
               "authors": "KIRA",
               "url": "https://kira.network",
               "documentation": "https://docs.kira.network",
-              "source": "https://github.com/KiraCore/sekai",
-              "vendor": "KiraCore",
+              "source": "https://github.com/mrlutik/sekai",
+              "vendor": "mrlutik",
               "licenses": "CC BY-NC-SA 4.0",
               "title": "sekai",
               "description": "SEKAI, KIRA's blockchain core, enhances Tendermint with Multi-Bonded Proof of Stake for staking diverse assets and KEX. It facilitates transactions and state transitions through Consensus Nodes, supported by off-chain modules like INTERX and RYOKAI for scalable execution and storage. As a hypermodular network hub, SEKAI streamlines user balance settlements, secures RollApp layers, and manages data/token transfers. It simplifies dApp deployment by enabling Consensus Nodes to act as Executors for RollApps, fostering a decentralized verification and execution system incentivized by KIRA’s liquidity protocols."

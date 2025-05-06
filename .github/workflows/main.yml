@@ -16,7 +16,7 @@ jobs:
       id-token: write
       pull-requests: write
     container: 
-      image: ghcr.io/kiracore/docker/base-image:v0.13.14
+      image: ghcr.io/mrlutik/docker/base-image:v0.13.14
     steps:
       # Work around https://github.com/actions/checkout/issues/760
       - name: Add safe.directory
@@ -58,7 +58,7 @@ jobs:
           RELEASE_VER="$(./scripts/version.sh)" && echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
           RELEASE_BRANCH="release/$RELEASE_VER" && echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_ENV
           REPOSITORY_NAME="${{ github.event.repository.name }}" && echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
-          git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
+          git ls-remote https://github.com/mrlutik/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
           if [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [ "$SOURCE_BRANCH" != "$RELEASE_VER" ] ; then 
             echo "ERROR: Version branch name MUST be the same as the app version, run scripts/version.sh to check app version!" 
             exit 1
@@ -139,7 +139,7 @@ jobs:
           echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
           REPOSITORY_NAME="${{ github.event.repository.name }}"
           echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
-          git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
+          git ls-remote https://github.com/mrlutik/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
           [[ "$RELEASE_VER" == *"-rc"* ]] && echo "PRE_RELEASE=true" >> $GITHUB_ENV || echo "PRE_RELEASE=false" >> $GITHUB_ENV
       # Branch name is also a version of the release
       # ref: https://stackoverflow.com/questions/58033366/how-to-get-the-current-branch-within-github-actions
