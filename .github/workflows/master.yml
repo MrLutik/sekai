@@ -41,7 +41,7 @@ jobs:
             uses: cea2aj/pull-request@84eb0c3478f13651e5649367941b867ca02d7926
             if: startsWith(env.SOURCE_BRANCH, 'release/v') && contains(env.SOURCE_BRANCH, '.')
             with:
-              github_token: ${{ secrets.REPO_ACCESS }}
+              github_token: ${{ secrets.GITHUB_TOKEN }}
               source_branch: ${{ env.SOURCE_BRANCH }}
               destination_branch: ${{ env.DEFAULT_BRANCH}}
               pr_title: "${{ env.SOURCE_BRANCH }} -> ${{ env.DEFAULT_BRANCH }}" 

@@ -254,7 +254,7 @@ jobs:
           github.event_name == 'push' &&
           ( startsWith(env.SOURCE_BRANCH, 'release/v') && contains(env.SOURCE_BRANCH, '.') )
         with:
-          github_token: ${{ secrets.REPO_ACCESS }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: ${{ env.SOURCE_BRANCH }}
           destination_branch: 'latest'
           pr_title: "${{ env.SOURCE_BRANCH }} -> latest" 
@@ -266,5 +266,5 @@ jobs:
           ( startsWith(env.SOURCE_BRANCH, 'release/v') && contains(env.SOURCE_BRANCH, '.') )
         env:
           MERGE_LABELS: "automerge"
-          GITHUB_TOKEN: "${{ secrets.REPO_ACCESS }}"
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           LOG: "TRACE"
