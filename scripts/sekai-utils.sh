@@ -771,16 +771,12 @@ function showValidator() {
     echo $VAL_STATUS
 }
 
-function showTokenAliases() {
-    echo $(sekaid query tokens all-aliases --output=json --home=$SEKAID_HOME 2> /dev/null | jsonParse 2> /dev/null || echo -n "") 
-}
-
-function showTokenRates() {
+function showTokenInfos() {
     echo $(sekaid query tokens all-rates --output=json --home=$SEKAID_HOME 2> /dev/null | jsonParse 2> /dev/null || echo -n "") 
 }
 
-# setTokenRate <account> <denom> <rate> <is-fee-token>
-function setTokenRate() {
+# setTokenInfo <account> <denom> <rate> <is-fee-token>
+function setTokenInfo() {
     local ACCOUNT=$1
     local DENOM=$2
     local RATE=$3
@@ -1364,4 +1360,18 @@ function getPollVotes() {
   RESULT=$(sekaid query customgov poll-votes $ID --output=json --home=$SEKAID_HOME 2> /dev/null | jsonParse "" 2> /dev/null || echo -n "")
 
   echo "$RESULT"
+}
+
+
+function ethereumTxRelay() {
+    local SOURCE=$1
+    local DATA=$2
+    local RESULT=""
+
+    ($(isNullOrEmpty $FEE_AMOUNT)) && FEE_AMOUNT=100
+    ($(isNullOrEmpty $FEE_DENOM)) && FEE_DENOM="ukex"
+
+    RESULT=$(sekaid tx ethereum relay --from="$SOURCE" "$DATA" --keyring-backend=test --chain-id="$NETWORK_NAME" --fees "${FEE_AMOUNT}${FEE_DENOM}" --output=json --yes --home="$SEKAID_HOME" 2> /dev/null | txAwait2 180 2> /dev/null || echo -n "" )
+
+    echo "${RESULT,,}"
 }
